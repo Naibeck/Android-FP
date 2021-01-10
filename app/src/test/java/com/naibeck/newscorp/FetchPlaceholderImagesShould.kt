@@ -1,11 +1,17 @@
 package com.naibeck.newscorp
 
+import arrow.core.Either
+import arrow.core.left
+import arrow.core.right
 import arrow.fx.ForIO
 import arrow.fx.IO
+import arrow.fx.extensions.io.applicativeError.attempt
 import arrow.fx.extensions.io.concurrent.concurrent
 import arrow.fx.extensions.io.unsafeRun.runBlocking
 import arrow.unsafe
 import com.naibeck.newscorp.network.PlaceholderImageApiService
+import com.naibeck.newscorp.network.dto.PlaceholderImageItem
+import com.naibeck.newscorp.network.error.NetworkError
 import com.naibeck.newscorp.network.loadImages
 import com.naibeck.newscorp.runtime.Runtime
 import com.naibeck.newscorp.runtime.RuntimeContext
@@ -61,4 +67,64 @@ class FetchPlaceholderImagesShould {
             times = once(),
             method = Method.GET)
     }
+
+    @Test
+    fun `map successful images placeholder image items`() {
+        rule.server.whenever(Method.GET, "photos")
+            .thenRespond(success(jsonBody = fileBody("ImagesPlaceholder.json")))
+
+        unsafe {
+            val images = runBlocking {
+                runtime.loadImages()
+            }
+
+            images eq expectedImages()
+        }
+    }
+
+    @Test
+    fun `map 404 error for network response`() {
+        rule.server.whenever(Method.GET, "photos")
+            .thenRespond(me.jorgecastillo.hiroaki.models.error(code = 404))
+
+        unsafe {
+            val res: Either<Throwable, List<PlaceholderImageItem>> = runBlocking {
+                val op = runtime.loadImages().attempt()
+                op.map {
+                    it.fold(
+                        ifLeft = { error -> error.left() },
+                        ifRight = { news -> news.right() }
+                    )
+                }
+            }
+
+            res eq NetworkError.NotFound.left()
+        }
+    }
+
+    @Test
+    fun `map unspecified error for network response`() {
+        rule.server.whenever(Method.GET, "photos")
+            .thenRespond(me.jorgecastillo.hiroaki.models.error(code = 500))
+
+        unsafe {
+            val res: Either<Throwable, List<PlaceholderImageItem>> = runBlocking {
+                val op = runtime.loadImages().attempt()
+                op.map {
+                    it.fold(
+                        ifLeft = { error -> error.left() },
+                        ifRight = { news -> news.right() }
+                    )
+                }
+            }
+
+            res eq NetworkError.ServerError.left()
+        }
+    }
+
+    private fun expectedImages(): List<PlaceholderImageItem> = listOf(
+        PlaceholderImageItem(thumbnailUrl = "https://via.placeholder.com/150/92c952"),
+        PlaceholderImageItem(thumbnailUrl = "https://via.placeholder.com/150/771796"),
+        PlaceholderImageItem(thumbnailUrl = "https://via.placeholder.com/150/24f355")
+    )
 }
