@@ -13,8 +13,8 @@ import com.naibeck.newscorp.network.PlaceholderImageApiService
 import com.naibeck.newscorp.network.dto.PlaceholderImageItem
 import com.naibeck.newscorp.network.error.NetworkError
 import com.naibeck.newscorp.network.loadImages
-import com.naibeck.newscorp.runtime.Runtime
-import com.naibeck.newscorp.runtime.RuntimeContext
+import com.naibeck.newscorp.runtime.context.Runtime
+import com.naibeck.newscorp.runtime.context.RuntimeContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import me.jorgecastillo.hiroaki.*
@@ -47,7 +47,11 @@ class FetchPlaceholderImagesShould {
             httpClient)
 
         val testDispatcher = TestCoroutineDispatcher()
-        val runtimeContext = RuntimeContext(testDispatcher, testDispatcher, service)
+        val runtimeContext = RuntimeContext(
+            testDispatcher,
+            testDispatcher,
+            service
+        )
 
         runtime = object : Runtime<ForIO>(IO.concurrent(), runtimeContext) {}
     }

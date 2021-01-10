@@ -1,4 +1,4 @@
-package com.naibeck.newscorp.runtime
+package com.naibeck.newscorp.runtime.context
 
 import arrow.fx.ForIO
 import arrow.fx.IO

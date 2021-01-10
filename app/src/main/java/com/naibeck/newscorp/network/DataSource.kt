@@ -3,7 +3,7 @@ package com.naibeck.newscorp.network
 import arrow.Kind
 import com.naibeck.newscorp.network.dto.PlaceholderImageItem
 import com.naibeck.newscorp.network.mapper.toNetworkError
-import com.naibeck.newscorp.runtime.Runtime
+import com.naibeck.newscorp.runtime.context.Runtime
 import retrofit2.Response
 
 fun <F> Runtime<F>.loadImages(): Kind<F, List<PlaceholderImageItem>> = fx.concurrent {
