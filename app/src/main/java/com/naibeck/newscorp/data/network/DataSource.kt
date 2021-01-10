@@ -1,9 +1,9 @@
-package com.naibeck.newscorp.network
+package com.naibeck.newscorp.data.network
 
 import arrow.Kind
-import com.naibeck.newscorp.network.dto.PlaceholderImageItem
-import com.naibeck.newscorp.network.mapper.normalizeError
-import com.naibeck.newscorp.network.mapper.toNetworkError
+import com.naibeck.newscorp.data.network.dto.PlaceholderImageItem
+import com.naibeck.newscorp.data.network.mapper.normalizeError
+import com.naibeck.newscorp.data.network.mapper.toNetworkError
 import com.naibeck.newscorp.runtime.context.Runtime
 import retrofit2.Response
 

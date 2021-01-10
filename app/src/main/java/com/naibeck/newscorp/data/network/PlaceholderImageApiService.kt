@@ -1,6 +1,6 @@
-package com.naibeck.newscorp.network
+package com.naibeck.newscorp.data.network
 
-import com.naibeck.newscorp.network.dto.PlaceholderImageItem
+import com.naibeck.newscorp.data.network.dto.PlaceholderImageItem
 import retrofit2.Call
 import retrofit2.http.GET
 

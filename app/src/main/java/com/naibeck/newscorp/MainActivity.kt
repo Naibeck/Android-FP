@@ -5,7 +5,7 @@ import android.os.Bundle
 import arrow.fx.IO
 import arrow.fx.extensions.io.unsafeRun.runNonBlocking
 import arrow.unsafe
-import com.naibeck.newscorp.network.dto.PlaceholderImageItem
+import com.naibeck.newscorp.data.network.dto.PlaceholderImageItem
 import com.naibeck.newscorp.runtime.application
 import com.naibeck.newscorp.runtime.context.runtime
 import com.naibeck.newscorp.ui.ImagesView
@@ -23,7 +23,9 @@ class MainActivity : AppCompatActivity(), ImagesView {
         }
     }
 
-    override fun present(images: List<PlaceholderImageItem>) {
-        Timber.d(images.toString())
-    }
+    override fun showProgress() = Timber.d("Show progres")
+
+    override fun hideProgress() = Timber.d("HideProgress")
+
+    override fun present(images: List<PlaceholderImageItem>) = Timber.d(images.toString())
 }

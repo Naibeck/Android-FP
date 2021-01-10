@@ -1,4 +1,4 @@
-package com.naibeck.newscorp.network.error
+package com.naibeck.newscorp.data.network.error
 
 sealed class NetworkError : Throwable() {
     object NotFound : NetworkError()

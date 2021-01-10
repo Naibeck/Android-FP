@@ -3,7 +3,7 @@ package com.naibeck.newscorp.runtime
 import android.app.Application
 import android.content.Context
 import com.naibeck.newscorp.BuildConfig
-import com.naibeck.newscorp.network.PlaceholderImageApiService
+import com.naibeck.newscorp.data.network.PlaceholderImageApiService
 import com.naibeck.newscorp.runtime.context.RuntimeContext
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit

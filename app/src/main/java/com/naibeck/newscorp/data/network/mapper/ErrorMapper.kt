@@ -1,6 +1,6 @@
-package com.naibeck.newscorp.network.mapper
+package com.naibeck.newscorp.data.network.mapper
 
-import com.naibeck.newscorp.network.error.NetworkError
+import com.naibeck.newscorp.data.network.error.NetworkError
 
 fun Int.toNetworkError() = when (this) {
     404 -> NetworkError.NotFound

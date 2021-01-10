@@ -9,10 +9,10 @@ import arrow.fx.extensions.io.applicativeError.attempt
 import arrow.fx.extensions.io.concurrent.concurrent
 import arrow.fx.extensions.io.unsafeRun.runBlocking
 import arrow.unsafe
-import com.naibeck.newscorp.network.PlaceholderImageApiService
-import com.naibeck.newscorp.network.dto.PlaceholderImageItem
-import com.naibeck.newscorp.network.error.NetworkError
-import com.naibeck.newscorp.network.loadImages
+import com.naibeck.newscorp.data.network.PlaceholderImageApiService
+import com.naibeck.newscorp.data.network.dto.PlaceholderImageItem
+import com.naibeck.newscorp.data.network.error.NetworkError
+import com.naibeck.newscorp.data.network.loadImages
 import com.naibeck.newscorp.runtime.context.Runtime
 import com.naibeck.newscorp.runtime.context.RuntimeContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi

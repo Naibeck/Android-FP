@@ -4,7 +4,7 @@ import arrow.fx.ForIO
 import arrow.fx.IO
 import arrow.fx.extensions.io.concurrent.concurrent
 import arrow.fx.typeclasses.Concurrent
-import com.naibeck.newscorp.network.PlaceholderImageApiService
+import com.naibeck.newscorp.data.network.PlaceholderImageApiService
 import kotlinx.coroutines.CoroutineDispatcher
 
 @Suppress("DELEGATED_MEMBER_HIDES_SUPERTYPE_OVERRIDE")
