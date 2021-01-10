@@ -2,11 +2,13 @@ package com.naibeck.newscorp.runtime
 
 import android.app.Application
 import android.content.Context
+import com.naibeck.newscorp.BuildConfig
 import com.naibeck.newscorp.network.PlaceholderImageApiService
 import com.naibeck.newscorp.runtime.context.RuntimeContext
 import kotlinx.coroutines.Dispatchers
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import timber.log.Timber
 
 class NewsApplication : Application() {
 
@@ -24,6 +26,13 @@ class NewsApplication : Application() {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
         retrofit.create(PlaceholderImageApiService::class.java)
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
     }
 }
 
