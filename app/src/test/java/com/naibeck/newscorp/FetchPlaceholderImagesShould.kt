@@ -20,7 +20,6 @@ import kotlinx.coroutines.test.TestCoroutineDispatcher
 import me.jorgecastillo.hiroaki.*
 import me.jorgecastillo.hiroaki.internal.MockServerRule
 import me.jorgecastillo.hiroaki.models.fileBody
-import me.jorgecastillo.hiroaki.models.success
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

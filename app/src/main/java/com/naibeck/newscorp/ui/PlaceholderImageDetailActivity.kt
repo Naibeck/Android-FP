@@ -11,10 +11,7 @@ import com.squareup.picasso.Callback
 class PlaceholderImageDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = DataBindingUtil.setContentView<ActivityPlaceholderImageDetailBinding>(
-            this,
-            R.layout.activity_placeholder_image_detail
-        )
+        val binding = DataBindingUtil.setContentView<ActivityPlaceholderImageDetailBinding>(this, R.layout.activity_placeholder_image_detail)
 
         supportPostponeEnterTransition()
 

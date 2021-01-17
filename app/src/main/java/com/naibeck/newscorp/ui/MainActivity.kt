@@ -25,10 +25,7 @@ class MainActivity : AppCompatActivity(), ImagesView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(
-            this,
-            R.layout.activity_main
-        )
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         loadImages()
         setupRefresh()
     }

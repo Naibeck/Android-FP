@@ -9,6 +9,6 @@ sealed class CachePolicy {
     object NetworkPolicy: CachePolicy()
 }
 
-fun <F>Runtime<F>.loadImages(policy: CachePolicy): Kind<F, List<PlaceholderImageItem>> = when(policy) {
+fun <F>Runtime<F>.loadImagesWith(policy: CachePolicy): Kind<F, List<PlaceholderImageItem>> = when(policy) {
     CachePolicy.NetworkPolicy -> loadImages()
 }

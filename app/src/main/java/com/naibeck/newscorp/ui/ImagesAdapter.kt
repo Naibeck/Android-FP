@@ -13,7 +13,7 @@ import com.naibeck.newscorp.databinding.ItemImageBinding
 import com.naibeck.newscorp.ui.extension.loadUrl
 
 class ImagesAdapter(
-    val placeholderImages: List<PlaceholderImageItem>,
+    private val placeholderImages: List<PlaceholderImageItem>,
     private val imagesView: ImagesView
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
