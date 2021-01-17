@@ -1,4 +1,4 @@
-package com.naibeck.newscorp.ui.extension
+package com.naibeck.newscorp.presentation.extension
 
 import android.view.View
 import android.widget.ProgressBar

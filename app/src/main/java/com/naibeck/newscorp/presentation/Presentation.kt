@@ -1,11 +1,10 @@
-package com.naibeck.newscorp.ui
+package com.naibeck.newscorp.presentation
 
 import android.widget.ImageView
 import arrow.Kind
 import com.naibeck.newscorp.business.fetchImages
 import com.naibeck.newscorp.data.network.dto.PlaceholderImageItem
 import com.naibeck.newscorp.runtime.context.Runtime
-import timber.log.Timber
 
 interface ImagesView {
     fun showProgress()

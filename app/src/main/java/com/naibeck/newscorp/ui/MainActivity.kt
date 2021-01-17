@@ -15,12 +15,16 @@ import arrow.unsafe
 import com.naibeck.newscorp.R
 import com.naibeck.newscorp.data.network.dto.PlaceholderImageItem
 import com.naibeck.newscorp.databinding.ActivityMainBinding
+import com.naibeck.newscorp.presentation.ImagesAdapter
+import com.naibeck.newscorp.presentation.ImagesView
+import com.naibeck.newscorp.presentation.loadImages
 import com.naibeck.newscorp.runtime.getApp
 import com.naibeck.newscorp.runtime.context.runtime
-import com.naibeck.newscorp.ui.extension.hide
-import com.naibeck.newscorp.ui.extension.show
+import com.naibeck.newscorp.presentation.extension.hide
+import com.naibeck.newscorp.presentation.extension.show
 
-class MainActivity : AppCompatActivity(), ImagesView {
+class MainActivity : AppCompatActivity(),
+    ImagesView {
     private var binding: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +43,11 @@ class MainActivity : AppCompatActivity(), ImagesView {
     }
 
     override fun show(images: List<PlaceholderImageItem>) {
-        setupImages(adapter = ImagesAdapter(placeholderImages = images, imagesView = this))
+        setupImages(adapter = ImagesAdapter(
+            placeholderImages = images,
+            imagesView = this
+        )
+        )
         binding?.refresh?.isRefreshing = false
     }
 

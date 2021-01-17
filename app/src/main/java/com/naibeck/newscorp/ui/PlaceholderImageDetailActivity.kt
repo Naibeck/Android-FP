@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.naibeck.newscorp.R
 import com.naibeck.newscorp.databinding.ActivityPlaceholderImageDetailBinding
-import com.naibeck.newscorp.ui.extension.loadTransitiveUrl
+import com.naibeck.newscorp.presentation.extension.loadTransitiveUrl
 import com.squareup.picasso.Callback
 
 class PlaceholderImageDetailActivity : AppCompatActivity() {

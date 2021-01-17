@@ -1,4 +1,4 @@
-package com.naibeck.newscorp.ui
+package com.naibeck.newscorp.presentation
 
 import android.view.LayoutInflater
 import android.view.View
@@ -10,15 +10,19 @@ import androidx.recyclerview.widget.RecyclerView
 import com.naibeck.newscorp.R
 import com.naibeck.newscorp.data.network.dto.PlaceholderImageItem
 import com.naibeck.newscorp.databinding.ItemImageBinding
-import com.naibeck.newscorp.ui.extension.loadUrl
+import com.naibeck.newscorp.presentation.extension.loadUrl
 
 class ImagesAdapter(
     private val placeholderImages: List<PlaceholderImageItem>,
     private val imagesView: ImagesView
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder = ImagesViewHolder(LayoutInflater.from(parent.context).inflate(
-        R.layout.item_image, parent, false), imagesView)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        ImagesViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_image, parent, false
+            ), imagesView
+        )
 
     override fun getItemCount(): Int = placeholderImages.size
 
