@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.swipeDown
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -70,29 +71,7 @@ class MainActivityTests {
     fun show_progress_bar() {
         myserver.withDelayedResponse(
             path = "photos",
-            body = Body.JsonBody("[\n" + //Current hiroaki library has an issue with json arrays so is required to do this
-                    "  {\n" +
-                    "    \"albumId\": 1,\n" +
-                    "    \"id\": 1,\n" +
-                    "    \"title\": \"accusamus beatae ad facilis cum similique qui sunt\",\n" +
-                    "    \"url\": \"https://via.placeholder.com/600/92c952\",\n" +
-                    "    \"thumbnailUrl\": \"https://via.placeholder.com/150/92c952\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"albumId\": 1,\n" +
-                    "    \"id\": 2,\n" +
-                    "    \"title\": \"reprehenderit est deserunt velit ipsam\",\n" +
-                    "    \"url\": \"https://via.placeholder.com/600/771796\",\n" +
-                    "    \"thumbnailUrl\": \"https://via.placeholder.com/150/771796\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"albumId\": 1,\n" +
-                    "    \"id\": 3,\n" +
-                    "    \"title\": \"officia porro iure quia iusto qui ipsa ut modi\",\n" +
-                    "    \"url\": \"https://via.placeholder.com/600/24f355\",\n" +
-                    "    \"thumbnailUrl\": \"https://via.placeholder.com/150/24f355\"\n" +
-                    "  }\n" +
-                    "]\n")
+            body = Body.JsonBody(placeholderJson)
         )
 
         startActivity()
@@ -116,29 +95,7 @@ class MainActivityTests {
     fun show_loaded_item() {
         myserver.withJsonResponse(
             path = "photos",
-            body = Body.JsonBody("[\n" +
-                    "  {\n" +
-                    "    \"albumId\": 1,\n" +
-                    "    \"id\": 1,\n" +
-                    "    \"title\": \"accusamus beatae ad facilis cum similique qui sunt\",\n" +
-                    "    \"url\": \"https://via.placeholder.com/600/92c952\",\n" +
-                    "    \"thumbnailUrl\": \"https://via.placeholder.com/150/92c952\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"albumId\": 1,\n" +
-                    "    \"id\": 2,\n" +
-                    "    \"title\": \"reprehenderit est deserunt velit ipsam\",\n" +
-                    "    \"url\": \"https://via.placeholder.com/600/771796\",\n" +
-                    "    \"thumbnailUrl\": \"https://via.placeholder.com/150/771796\"\n" +
-                    "  },\n" +
-                    "  {\n" +
-                    "    \"albumId\": 1,\n" +
-                    "    \"id\": 3,\n" +
-                    "    \"title\": \"officia porro iure quia iusto qui ipsa ut modi\",\n" +
-                    "    \"url\": \"https://via.placeholder.com/600/24f355\",\n" +
-                    "    \"thumbnailUrl\": \"https://via.placeholder.com/150/24f355\"\n" +
-                    "  }\n" +
-                    "]\n")
+            body = Body.JsonBody(placeholderJson)
         )
 
         startActivity()
@@ -156,5 +113,43 @@ class MainActivityTests {
         onView(withId(R.id.errorView)).check(matches(isDisplayed()))
     }
 
+    @Test
+    fun refresh_after_pulling_down() {
+        myserver.withDelayedResponse(
+            path = "photos",
+            body = Body.JsonBody(placeholderJson),
+            delay = 3000
+        )
+
+        startActivity()
+
+        onView(withId(R.id.refresh)).perform(swipeDown())
+        onView(withId(R.id.refresh)).check(matches(isDisplayed()))
+    }
+
     private fun startActivity(): MainActivity = runtime.run { testRule.launchActivity(Intent()) }
+
+    private val placeholderJson: String = "[\n" +
+            "  {\n" +
+            "    \"albumId\": 1,\n" +
+            "    \"id\": 1,\n" +
+            "    \"title\": \"accusamus beatae ad facilis cum similique qui sunt\",\n" +
+            "    \"url\": \"https://via.placeholder.com/600/92c952\",\n" +
+            "    \"thumbnailUrl\": \"https://via.placeholder.com/150/92c952\"\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"albumId\": 1,\n" +
+            "    \"id\": 2,\n" +
+            "    \"title\": \"reprehenderit est deserunt velit ipsam\",\n" +
+            "    \"url\": \"https://via.placeholder.com/600/771796\",\n" +
+            "    \"thumbnailUrl\": \"https://via.placeholder.com/150/771796\"\n" +
+            "  },\n" +
+            "  {\n" +
+            "    \"albumId\": 1,\n" +
+            "    \"id\": 3,\n" +
+            "    \"title\": \"officia porro iure quia iusto qui ipsa ut modi\",\n" +
+            "    \"url\": \"https://via.placeholder.com/600/24f355\",\n" +
+            "    \"thumbnailUrl\": \"https://via.placeholder.com/150/24f355\"\n" +
+            "  }\n" +
+            "]\n"
 }

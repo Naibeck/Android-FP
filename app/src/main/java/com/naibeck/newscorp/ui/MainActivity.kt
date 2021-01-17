@@ -25,15 +25,12 @@ class MainActivity : AppCompatActivity(), ImagesView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,
+        binding = DataBindingUtil.setContentView(
+            this,
             R.layout.activity_main
         )
-
-        unsafe {
-            runNonBlocking({
-                IO.runtime(getApp().runtimeContext).loadImages(imagesView = this@MainActivity)
-            }, {})
-        }
+        loadImages()
+        setupRefresh()
     }
 
     override fun showProgress() {
@@ -46,6 +43,7 @@ class MainActivity : AppCompatActivity(), ImagesView {
 
     override fun show(images: List<PlaceholderImageItem>) {
         setupImages(adapter = ImagesAdapter(placeholderImages = images, imagesView = this))
+        binding?.refresh?.isRefreshing = false
     }
 
     override fun onImageClick(imageView: ImageView?, url: String) {
@@ -54,12 +52,7 @@ class MainActivity : AppCompatActivity(), ImagesView {
             intent.putExtra(IMAGE_URL, url)
             intent.putExtra(IMAGE_NAME, ViewCompat.getTransitionName(imageView))
 
-            val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
-                this,
-                imageView,
-                ViewCompat.getTransitionName(imageView) ?: "imageView"
-            )
-            startActivity(intent, bundle.toBundle())
+            startActivity(intent, generateTransitionOption(imageView).toBundle())
         }
     }
 
@@ -71,6 +64,26 @@ class MainActivity : AppCompatActivity(), ImagesView {
         binding?.images?.layoutManager = GridLayoutManager(this, resources.getInteger(R.integer.images_span))
         binding?.images?.adapter = adapter
     }
+
+    private fun setupRefresh() {
+        binding?.refresh?.setOnRefreshListener {
+            binding?.refresh?.isRefreshing = true
+            loadImages()
+        }
+    }
+
+    private fun loadImages() = unsafe {
+        runNonBlocking({
+            IO.runtime(getApp().runtimeContext).loadImages(imagesView = this@MainActivity)
+        }, {})
+    }
+
+    private fun generateTransitionOption(imageView: ImageView): ActivityOptionsCompat =
+        ActivityOptionsCompat.makeSceneTransitionAnimation(
+            this,
+            imageView,
+            ViewCompat.getTransitionName(imageView) ?: "imageView"
+        )
 
     companion object {
         const val IMAGE_URL = "image.url"
