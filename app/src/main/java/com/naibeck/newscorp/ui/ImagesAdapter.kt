@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.naibeck.newscorp.R
 import com.naibeck.newscorp.data.network.dto.PlaceholderImageItem
 import com.naibeck.newscorp.databinding.ItemImageBinding
-import com.squareup.picasso.Picasso
+import com.naibeck.newscorp.ui.extension.loadUrl
 
 class ImagesAdapter(
     val placeholderImages: List<PlaceholderImageItem>,
@@ -29,19 +29,13 @@ class ImagesAdapter(
         }
     }
 
-    internal class ImagesViewHolder(view: View, private val imagesView: ImagesView) : RecyclerView.ViewHolder(view) {
+    class ImagesViewHolder(view: View, private val imagesView: ImagesView) : RecyclerView.ViewHolder(view) {
 
         fun bind(item: PlaceholderImageItem) {
             val binding = DataBindingUtil.bind<ItemImageBinding>(itemView)
             binding?.imageThumbnail?.let {imageView ->
-                Picasso.get()
-                    .load(item.thumbnailUrl)
-                    .fit()
-                    .centerCrop()
-                    .into(imageView)
-
+                imageView.loadUrl(item.thumbnailUrl)
                 ViewCompat.setTransitionName(imageView, item.thumbnailUrl)
-
                 imageView.setOnClickListener {
                     imagesView.onImageClick(it as ImageView, item.thumbnailUrl)
                 }

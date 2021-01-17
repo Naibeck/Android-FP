@@ -21,8 +21,6 @@ import me.jorgecastillo.hiroaki.*
 import me.jorgecastillo.hiroaki.internal.MockServerRule
 import me.jorgecastillo.hiroaki.models.fileBody
 import me.jorgecastillo.hiroaki.models.success
-import okhttp3.OkHttpClient
-
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -54,8 +52,10 @@ class FetchPlaceholderImagesShould {
 
     @Test
     fun `send fetch images into expected path`() {
-        rule.server.whenever(Method.GET, "photos")
-            .thenRespond(success(jsonBody = fileBody("ImagesPlaceholder.json")))
+        rule.withJsonResponse(
+            path = "photos", body =
+            fileBody("ImagesPlaceholder.json")
+        )
 
         unsafe {
             runBlocking {
@@ -70,8 +70,10 @@ class FetchPlaceholderImagesShould {
 
     @Test
     fun `map successful images placeholder items`() {
-        rule.server.whenever(Method.GET, "photos")
-            .thenRespond(success(jsonBody = fileBody("ImagesPlaceholder.json")))
+        rule.withJsonResponse(
+            path = "photos", body =
+            fileBody("ImagesPlaceholder.json")
+        )
 
         unsafe {
             val images = runBlocking {
@@ -84,8 +86,7 @@ class FetchPlaceholderImagesShould {
 
     @Test
     fun `map 404 error for network response`() {
-        rule.server.whenever(Method.GET, "photos")
-            .thenRespond(me.jorgecastillo.hiroaki.models.error(code = 404))
+        rule.error404(path = "photos")
 
         unsafe {
             val res: Either<Throwable, List<PlaceholderImageItem>> = runBlocking {
@@ -104,8 +105,7 @@ class FetchPlaceholderImagesShould {
 
     @Test
     fun `map unspecified error for network response`() {
-        rule.server.whenever(Method.GET, "photos")
-            .thenRespond(me.jorgecastillo.hiroaki.models.error(code = 500))
+        rule.error500(path = "photos")
 
         unsafe {
             val res: Either<Throwable, List<PlaceholderImageItem>> = runBlocking {

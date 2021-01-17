@@ -15,8 +15,10 @@ import arrow.unsafe
 import com.naibeck.newscorp.R
 import com.naibeck.newscorp.data.network.dto.PlaceholderImageItem
 import com.naibeck.newscorp.databinding.ActivityMainBinding
-import com.naibeck.newscorp.runtime.application
+import com.naibeck.newscorp.runtime.getApp
 import com.naibeck.newscorp.runtime.context.runtime
+import com.naibeck.newscorp.ui.extension.hide
+import com.naibeck.newscorp.ui.extension.show
 
 class MainActivity : AppCompatActivity(), ImagesView {
     private var binding: ActivityMainBinding? = null
@@ -29,29 +31,28 @@ class MainActivity : AppCompatActivity(), ImagesView {
 
         unsafe {
             runNonBlocking({
-                IO.runtime(application().runtimeContext).loadImages(imagesView = this@MainActivity)
+                IO.runtime(getApp().runtimeContext).loadImages(imagesView = this@MainActivity)
             }, {})
         }
     }
 
     override fun showProgress() {
-        binding?.progress?.visibility = View.VISIBLE
+        binding?.progress?.show()
     }
 
     override fun hideProgress() {
-        binding?.progress?.visibility = View.GONE
+        binding?.progress?.hide()
     }
 
     override fun show(images: List<PlaceholderImageItem>) {
-        val adapter = ImagesAdapter(placeholderImages = images, imagesView = this)
-        setupImages(adapter)
+        setupImages(adapter = ImagesAdapter(placeholderImages = images, imagesView = this))
     }
 
     override fun onImageClick(imageView: ImageView?, url: String) {
         imageView?.let {
             val intent = Intent(this, PlaceholderImageDetailActivity::class.java)
-            intent.putExtra("url", url)
-            intent.putExtra("name", ViewCompat.getTransitionName(imageView))
+            intent.putExtra(IMAGE_URL, url)
+            intent.putExtra(IMAGE_NAME, ViewCompat.getTransitionName(imageView))
 
             val bundle = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 this,
@@ -62,10 +63,17 @@ class MainActivity : AppCompatActivity(), ImagesView {
         }
     }
 
+    override fun showError() {
+        binding?.errorView?.visibility = View.VISIBLE
+    }
+
     private fun setupImages(adapter: ImagesAdapter) {
-        binding?.images?.layoutManager = GridLayoutManager(this, resources.getInteger(
-            R.integer.images_span
-        ))
+        binding?.images?.layoutManager = GridLayoutManager(this, resources.getInteger(R.integer.images_span))
         binding?.images?.adapter = adapter
+    }
+
+    companion object {
+        const val IMAGE_URL = "image.url"
+        const val IMAGE_NAME = "image.name"
     }
 }

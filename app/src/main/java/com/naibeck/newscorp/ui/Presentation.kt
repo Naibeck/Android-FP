@@ -12,6 +12,7 @@ interface ImagesView {
     fun hideProgress()
     fun show(images: List<PlaceholderImageItem>)
     fun onImageClick(imageView: ImageView?, url: String)
+    fun showError()
 }
 
 fun <F> Runtime<F>.loadImages(imagesView: ImagesView): Kind<F, Unit> = fx.concurrent {
@@ -21,7 +22,7 @@ fun <F> Runtime<F>.loadImages(imagesView: ImagesView): Kind<F, Unit> = fx.concur
 
     !effect {
         maybeImages.fold(
-            ifLeft = { Timber.e(it) },
+            ifLeft = { imagesView.showError() },
             ifRight = { imagesView.show(it) }
         )
     }

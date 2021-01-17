@@ -10,23 +10,20 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 
-class NewsApplication : Application() {
+open class NewsApplication : Application() {
+    open var imagesService: PlaceholderImageApiService =
+        Retrofit.Builder()
+            .baseUrl("https://jsonplaceholder.typicode.com/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(PlaceholderImageApiService::class.java)
 
-    val runtimeContext by lazy {
+    open var runtimeContext =
         RuntimeContext(
             bgDispatcher = Dispatchers.IO,
             mainDispatcher = Dispatchers.Main,
             imageService = imagesService
         )
-    }
-
-    private val imagesService: PlaceholderImageApiService by lazy {
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://jsonplaceholder.typicode.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-        retrofit.create(PlaceholderImageApiService::class.java)
-    }
 
     override fun onCreate() {
         super.onCreate()
@@ -36,4 +33,4 @@ class NewsApplication : Application() {
     }
 }
 
-fun Context.application(): NewsApplication = applicationContext as NewsApplication
+fun Context.getApp(): NewsApplication = applicationContext as NewsApplication
