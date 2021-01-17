@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity(), ImagesView {
     }
 
     override fun showError() {
-        binding?.errorView?.visibility = View.VISIBLE
+        binding?.errorView?.container?.visibility = View.VISIBLE
     }
 
     private fun setupImages(adapter: ImagesAdapter) {
