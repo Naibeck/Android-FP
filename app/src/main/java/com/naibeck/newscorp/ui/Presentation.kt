@@ -9,7 +9,7 @@ import timber.log.Timber
 interface ImagesView {
     fun showProgress()
     fun hideProgress()
-    fun present(images: List<PlaceholderImageItem>)
+    fun show(images: List<PlaceholderImageItem>)
 }
 
 fun <F> Runtime<F>.loadImages(imagesView: ImagesView): Kind<F, Unit> = fx.concurrent {
@@ -20,7 +20,7 @@ fun <F> Runtime<F>.loadImages(imagesView: ImagesView): Kind<F, Unit> = fx.concur
     !effect {
         maybeImages.fold(
             ifLeft = { Timber.e(it) },
-            ifRight = { imagesView.present(it) }
+            ifRight = { imagesView.show(it) }
         )
     }
 }

@@ -38,13 +38,9 @@ class FetchPlaceholderImagesShould {
 
     @Before
     fun setup() {
-        val httpClient: OkHttpClient = OkHttpClient.Builder()
-            .build()
-
         val service = rule.server.retrofitService(
             PlaceholderImageApiService::class.java,
-            GsonConverterFactory.create(),
-            httpClient)
+            GsonConverterFactory.create())
 
         val testDispatcher = TestCoroutineDispatcher()
         val runtimeContext = RuntimeContext(
@@ -73,7 +69,7 @@ class FetchPlaceholderImagesShould {
     }
 
     @Test
-    fun `map successful images placeholder image items`() {
+    fun `map successful images placeholder items`() {
         rule.server.whenever(Method.GET, "photos")
             .thenRespond(success(jsonBody = fileBody("ImagesPlaceholder.json")))
 
