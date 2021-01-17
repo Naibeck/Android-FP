@@ -1,5 +1,6 @@
 package com.naibeck.newscorp.ui
 
+import android.widget.ImageView
 import arrow.Kind
 import com.naibeck.newscorp.business.fetchImages
 import com.naibeck.newscorp.data.network.dto.PlaceholderImageItem
@@ -10,6 +11,7 @@ interface ImagesView {
     fun showProgress()
     fun hideProgress()
     fun show(images: List<PlaceholderImageItem>)
+    fun onImageClick(imageView: ImageView?, url: String)
 }
 
 fun <F> Runtime<F>.loadImages(imagesView: ImagesView): Kind<F, Unit> = fx.concurrent {
