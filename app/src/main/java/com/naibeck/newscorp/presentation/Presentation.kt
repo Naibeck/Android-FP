@@ -4,21 +4,8 @@ import android.widget.ImageView
 import arrow.Kind
 import com.naibeck.newscorp.business.fetchImages
 import com.naibeck.newscorp.data.network.dto.PlaceholderImageItem
+import com.naibeck.newscorp.presentation.views.ImagesView
 import com.naibeck.newscorp.runtime.context.Runtime
-
-interface ContainerView {
-    fun showProgress()
-    fun hideProgress()
-    fun showError()
-}
-
-interface ImagesView {
-    fun showProgress()
-    fun hideProgress()
-    fun show(images: List<PlaceholderImageItem>)
-    fun onImageClick(imageView: ImageView?, url: String)
-    fun showError()
-}
 
 fun <F> Runtime<F>.loadImages(imagesView: ImagesView): Kind<F, Unit> = fx.concurrent {
     !effect { imagesView.showProgress() }

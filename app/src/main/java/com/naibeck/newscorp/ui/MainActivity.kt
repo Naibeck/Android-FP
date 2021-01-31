@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.naibeck.newscorp.R
 import com.naibeck.newscorp.databinding.ActivityMainBinding
-import com.naibeck.newscorp.presentation.ContainerView
 import com.naibeck.newscorp.presentation.extension.hide
 import com.naibeck.newscorp.presentation.extension.show
+import com.naibeck.newscorp.presentation.views.ContainerView
 
 class MainActivity : AppCompatActivity(), ContainerView {
     private var binding: ActivityMainBinding? = null

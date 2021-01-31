@@ -17,10 +17,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.naibeck.newscorp.R
 import com.naibeck.newscorp.data.network.dto.PlaceholderImageItem
 import com.naibeck.newscorp.databinding.FragmentPlaceholderBinding
-import com.naibeck.newscorp.presentation.ContainerView
 import com.naibeck.newscorp.presentation.ImagesAdapter
-import com.naibeck.newscorp.presentation.ImagesView
 import com.naibeck.newscorp.presentation.PlaceholderImagesPresenter
+import com.naibeck.newscorp.presentation.views.ContainerView
+import com.naibeck.newscorp.presentation.views.ImagesView
 import com.naibeck.newscorp.runtime.getApp
 import com.naibeck.newscorp.ui.MainActivity.Companion.IMAGE_NAME
 import com.naibeck.newscorp.ui.MainActivity.Companion.IMAGE_URL

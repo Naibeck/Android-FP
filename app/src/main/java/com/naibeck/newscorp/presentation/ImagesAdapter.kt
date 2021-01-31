@@ -11,6 +11,7 @@ import com.naibeck.newscorp.R
 import com.naibeck.newscorp.data.network.dto.PlaceholderImageItem
 import com.naibeck.newscorp.databinding.ItemImageBinding
 import com.naibeck.newscorp.presentation.extension.loadUrl
+import com.naibeck.newscorp.presentation.views.ImagesView
 
 class ImagesAdapter(
     private val placeholderImages: List<PlaceholderImageItem>,
