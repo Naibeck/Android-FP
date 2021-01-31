@@ -7,7 +7,9 @@ Functional programming is currently one of my study subjects so it also became a
 ## Architecture
 In the architecture I decided to write files that only has function on it, but are representing  the way of how classes and objects should interact with each other.
 Due to the simplicity of the project there are some features that are not implemented, for example checking the CachePolicy classes the project is allowed to implement a different policy being the only one Network.
-The presentation layer is using MVP again for the simplicity of implementing it.
+
+## MVP
+The presentation layer is using MVP again for the simplicity of implementing it, you ca check the result in the Presentation file which contain a loadImages function and inside of it is returning a F and a Unit. It's calling effect to represent the side effects and communicating how the view should update itself by reacting to this effects.
 
 ## Mothers
 In both testing projects there exists a concept of `mother` that will allow us to avoid code duplication for the mock server on different tests. The idea behind mothers is to provide same implementation with multiple params when calling a function. Again this follows functional by using extension functions.

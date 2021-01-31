@@ -17,14 +17,14 @@ import com.naibeck.newscorp.data.network.dto.PlaceholderImageItem
 import com.naibeck.newscorp.databinding.ActivityMainBinding
 import com.naibeck.newscorp.presentation.ImagesAdapter
 import com.naibeck.newscorp.presentation.ImagesView
+import com.naibeck.newscorp.presentation.PlaceholderImagesPresenter
 import com.naibeck.newscorp.presentation.loadImages
 import com.naibeck.newscorp.runtime.getApp
 import com.naibeck.newscorp.runtime.context.runtime
 import com.naibeck.newscorp.presentation.extension.hide
 import com.naibeck.newscorp.presentation.extension.show
 
-class MainActivity : AppCompatActivity(),
-    ImagesView {
+class MainActivity : AppCompatActivity(), ImagesView {
     private var binding: ActivityMainBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +33,9 @@ class MainActivity : AppCompatActivity(),
         loadImages()
         setupRefresh()
     }
+
+    override val presenter: PlaceholderImagesPresenter
+        get() = PlaceholderImagesPresenter(view = this, runtime = getApp().runtimeContext)
 
     override fun showProgress() {
         binding?.progress?.show()
@@ -77,11 +80,7 @@ class MainActivity : AppCompatActivity(),
         }
     }
 
-    private fun loadImages() = unsafe {
-        runNonBlocking({
-            IO.runtime(getApp().runtimeContext).loadImages(imagesView = this@MainActivity)
-        }, {})
-    }
+    private fun loadImages() = presenter.loadImages()
 
     private fun generateTransitionOption(imageView: ImageView): ActivityOptionsCompat =
         ActivityOptionsCompat.makeSceneTransitionAnimation(

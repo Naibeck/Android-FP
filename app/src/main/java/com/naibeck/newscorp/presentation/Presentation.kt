@@ -7,6 +7,7 @@ import com.naibeck.newscorp.data.network.dto.PlaceholderImageItem
 import com.naibeck.newscorp.runtime.context.Runtime
 
 interface ImagesView {
+    val presenter: PlaceholderImagesPresenter
     fun showProgress()
     fun hideProgress()
     fun show(images: List<PlaceholderImageItem>)
