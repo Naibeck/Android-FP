@@ -1,28 +1,24 @@
 package com.naibeck.newscorp.ui
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
-import arrow.fx.IO
-import arrow.fx.extensions.io.unsafeRun.runNonBlocking
-import arrow.unsafe
+import androidx.recyclerview.widget.RecyclerView.Adapter.StateRestorationPolicy
 import com.naibeck.newscorp.R
 import com.naibeck.newscorp.data.network.dto.PlaceholderImageItem
 import com.naibeck.newscorp.databinding.ActivityMainBinding
 import com.naibeck.newscorp.presentation.ImagesAdapter
 import com.naibeck.newscorp.presentation.ImagesView
 import com.naibeck.newscorp.presentation.PlaceholderImagesPresenter
-import com.naibeck.newscorp.presentation.loadImages
-import com.naibeck.newscorp.runtime.getApp
-import com.naibeck.newscorp.runtime.context.runtime
 import com.naibeck.newscorp.presentation.extension.hide
 import com.naibeck.newscorp.presentation.extension.show
+import com.naibeck.newscorp.runtime.getApp
 
 class MainActivity : AppCompatActivity(), ImagesView {
     private var binding: ActivityMainBinding? = null
@@ -69,6 +65,7 @@ class MainActivity : AppCompatActivity(), ImagesView {
     }
 
     private fun setupImages(adapter: ImagesAdapter) {
+        adapter.stateRestorationPolicy = StateRestorationPolicy.PREVENT_WHEN_EMPTY
         binding?.images?.layoutManager = GridLayoutManager(this, resources.getInteger(R.integer.images_span))
         binding?.images?.adapter = adapter
     }
