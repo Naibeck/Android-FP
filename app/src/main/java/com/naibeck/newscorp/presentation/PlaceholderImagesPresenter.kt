@@ -8,14 +8,16 @@ import com.naibeck.newscorp.runtime.context.runtime
 
 class PlaceholderImagesPresenter(
     private val view: ImagesView,
-    private val runtime: RuntimeContext
+    private val runtime: RuntimeContext?
 ) {
 
     fun loadImages() {
-        unsafe {
-            runNonBlocking({
-                IO.runtime(runtime).loadImages(imagesView = view)
-            }, {})
+        runtime?.let {
+            unsafe {
+                runNonBlocking({
+                    IO.runtime(runtime).loadImages(imagesView = view)
+                }, {})
+            }
         }
     }
 }
