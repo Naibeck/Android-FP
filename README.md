@@ -1,4 +1,4 @@
-# News Corp App
+# Android FP App
 
 ## Functional programming
 I decided to go with functional programming due to the the benefit to reuse each function, following the paradigm it ended with a few classes most of them applicable to the Android framework and the service API from retrofit.
